@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Management Dashboard</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --blue: #287bff;
+            --white: #fff;
+            --grey: #f5f5f5;
+            --black1: #222;
+            --black2: #999;
+        }
+
+    
+
+        main {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            overflow: hidden;
+
+        }
+
+        header {
+            margin-top: 30px;
+            padding: 7px 20px;
+        }
+
+        .title {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .container{
+             padding: 20px;
+            display: flex;
+            flex-direction:row;
+            align-items: flex-start;
+            justify-content: stretch;
+
+        }
+        .users-window{
+            width: 350px;
+            color: var(--black2);
+            background-color: var(--grey);
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-right: 20px ;
+        }
+
+        .users-head{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            color: var(--black1);
+        }
+
+        h4{
+            color: var(--grey);
+            background-color: var(--black1);
+            padding: 0 8px;
+            border-radius: 10px;
+        }
+
+        
+        .users-list p{
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .users-list p:hover{
+            color: var(--white);
+            background-color: var(--blue);
+            border-radius: 20px;
+            padding:0 5px;
+        }
+
+    
+        .chat-window{
+            width: 100%;
+            border-radius: 10px;
+            background-color: var(--grey);
+        }
+
+        .chats{
+            min-height: 65vh;
+            padding: 20px;
+        }
+
+        .user-join{
+            font-size: 0.9rem;
+            color: var(--black2);
+            margin-bottom: 10px;
+            border-radius: 50px;
+            width: max-content;
+            padding: 7px 20px;
+            margin: 20px auto;
+        }
+
+        .message{
+            color: var(--black1);
+            background-color: var(--white);
+            padding: 5px 15px;
+            max-width: 400px;
+            margin-bottom: 15px;
+            border-radius: 10px 50px 50px 10px;
+
+        }
+
+        .message p{
+            font-size: 15px;
+        }
+
+        .outgoing{
+            margin-left: auto;
+            color: var(--white);
+            background-color: var(--blue);
+            border-radius: 50px 10px 10px 50px;
+            text-align: right;
+        }
+
+        .user-input{
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        input{
+            font-size: 15px;
+            background-color: var(--white);
+            padding: 10px 20px;
+            outline: none;
+            border: none;
+            width: 100%;
+            border-radius: 50px 0 0 50px;
+           }
+
+        button{
+            font-size: 15px;
+            font-weight: 500;
+            padding: 5px 15px;
+            border: none;
+            outline: none;
+            letter-spacing: 0.5px;
+            border-radius: 0 50px 50px 0;
+            background-color: var(--blue);
+            color: var(--white);
+        }
+
+        button:hover{
+            background-color: var(--blue);
+            color: var(--white);
+            font-size: large;
+            border-radius: 0 50px 50px 0;
+        }
+
+        
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="navigation">
+
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="icon"><ion-icon name="grid-outline"></ion-icon></span>
+                        <span class="title">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="buses">
+                        <span class="icon"><ion-icon name="bus-outline"></ion-icon></span>
+                        <span class="title">Available Buses</span>
+                    </a>
+                </li>
+                <li>
+
+                    <a href="drivers">
+                        <span class="icon"><ion-icon name="person-circle-outline"></ion-icon></span>
+                        <span class="title">Driver Details</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="staff">
+                        <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
+                        <span class="title">Staff Details</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="routes">
+                        <span class="icon"><ion-icon name="navigate-circle-outline"></ion-icon></span>
+                        <span class="title">Routes Details</span>
+                    </a>
+                </li>
+                </li>
+                <li>
+                    <a href="scheduler">
+                        <span class="icon"><ion-icon name="calendar-outline"></ion-icon></span>
+                        <span class="title">Scheduler</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="emergency">
+                        <span class="icon"><ion-icon name="notifications-circle-outline"></ion-icon></span>
+                        <span class="title">Emergency Notification</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="emergencyResponse">
+                        <span class="icon"><ion-icon name="chatbubbles-outline"></ion-icon></span>
+                        <span class="title">Emergency Response</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
+                        <span class="title">log out</span>
+                    </a>
+                </li>
+
+
+            </ul>
+        </div>
+
+        <div class="main">
+            <div class="topbar">
+                <div class="toggle">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </div>
+                <header>
+                    <div class="title">
+                        <h2>Emergency Response</h2>
+                    </div>
+                    
+
+                    </button>
+                </header>
+                <div class="user">
+                    <img src="../static/images/user.png">
+                </div>
+            </div>
+
+            <main>
+                  <div class="container">
+                    <div class="users-window">
+                        <div class="users-head">
+                            <h3>
+                                People
+                            </h3>
+                            <h4>3</h4>
+                        </div>
+                        <div class="users-list">
+                            <p>Rajesh Kumar</p>
+                            <p>Suresh Yadav</p>
+                            <p>Rajendra </p>
+                        </div>
+                    </div>
+                    <div class="chat-window">
+                        <div class="chats">
+                            <div class="user-join">
+                                <p>
+                                    <b>
+                                        Rajesh 
+                                    </b>
+                                    joined the chat
+                                </p>
+                            </div>
+                            <div class="message incoming">
+                                <h5>Rajesh</h5>
+                                <p>
+                                    Emergency
+                                </p>
+                            </div>
+                            <div class="message outgoing">
+                                <h5>Manager</h5>
+                                <p>Please explain</p>
+                            </div>
+                        </div>
+                        <div class="user-input">
+                            <input type="text" placeholder="Type your message">
+                            <button>Send</button>
+                        </div>
+                    </div>
+
+                  </div>
+            </main>
+            <script>
+                document.addEventListener("DOMContentLoaded", () => {
+    const chatForm = document.querySelector('.user-input');
+    const chatInput = chatForm.querySelector('input');
+    const chatWindow = document.querySelector('.chats');
+
+    // Function to send a message
+    const sendMessage = (message) => {
+        if (message.trim() === '') return; // Ignore empty messages
+
+        // Create message container
+        const messageContainer = document.createElement('div');
+        messageContainer.classList.add('message', 'outgoing');
+
+        // Create message content
+        const messageContent = document.createElement('p');
+        messageContent.textContent = message;
+
+        // Append content to container
+        messageContainer.appendChild(messageContent);
+
+        // Append container to chat window
+        chatWindow.appendChild(messageContainer);
+
+        // Scroll chat to the bottom
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+
+        // Clear input field
+        chatInput.value = '';
+    };
+
+    // Handle form submission
+    chatForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const message = chatInput.value;
+        sendMessage(message);
+    });
+
+    // Handle button click
+    chatForm.querySelector('button').addEventListener('click', () => {
+        const message = chatInput.value;
+        sendMessage(message);
+    });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const users = document.querySelectorAll('.user');
+    const chatWindow = document.querySelector('.chats');
+    const chatForm = document.querySelector('.user-input');
+    const chatInput = chatForm.querySelector('input');
+    const currentChat = {};
+
+    let activeUser = null;
+
+    // Function to switch chat
+    const switchChat = (username) => {
+        activeUser = username;
+        chatWindow.innerHTML = ''; // Clear current chat
+
+        // Load chat history if available
+        if (currentChat[username]) {
+            currentChat[username].forEach(message => {
+                const messageContainer = document.createElement('div');
+                messageContainer.classList.add('message', message.type);
+                const messageContent = document.createElement('p');
+                messageContent.textContent = message.content;
+                messageContainer.appendChild(messageContent);
+                chatWindow.appendChild(messageContainer);
+            });
+        }
+
+        // Scroll chat to the bottom
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+    };
+
+    // Function to send a message
+    const sendMessage = (message) => {
+        if (message.trim() === '' || !activeUser) return;
+
+        // Save the message to the chat history
+        const messageObject = { content: message, type: 'outgoing' };
+        if (!currentChat[activeUser]) {
+            currentChat[activeUser] = [];
+        }
+        currentChat[activeUser].push(messageObject);
+
+        // Display the message in the chat window
+        const messageContainer = document.createElement('div');
+        messageContainer.classList.add('message', 'outgoing');
+        const messageContent = document.createElement('p');
+        messageContent.textContent = message;
+        messageContainer.appendChild(messageContent);
+        chatWindow.appendChild(messageContainer);
+
+        // Scroll chat to the bottom
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+
+        // Clear input field
+        chatInput.value = '';
+    };
+
+    // Handle user click to switch chat
+    users.forEach(user => {
+        user.addEventListener('click', () => {
+            const username = user.getAttribute('data-username');
+            switchChat(username);
+        });
+    });
+
+    // Handle form submission to send a message
+    chatForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const message = chatInput.value;
+        sendMessage(message);
+    });
+
+    // Handle button click to send a message
+    chatForm.querySelector('button').addEventListener('click', () => {
+        const message = chatInput.value;
+        sendMessage(message);
+    });
+});
+
+</script>
+            <script src="../static/js/script.js"></script>
+            <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+            <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

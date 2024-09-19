@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Maps Route Display</title>
+    <!-- HERE Maps API -->
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-core.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-service.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-ui.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnFcOW8F-202L55VegQzyKoQfP0hHR77g&callback=initGoogleMap" async defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Management Dashboard</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
+    <style>
+        #mapContainer {
+            width: 100%;
+            height: 500px;
+            background-color: grey; /* Ensure the map container has a visible background */
+        }
+        #googleMapContainer {
+            width: 100%;
+            height: 500px;
+            margin-top: 20px; /* Add some space between the two maps */
+        }
+        .main {
+            position: relative;
+            width: calc(100% - 300px);
+            left: 300px;
+            min-height: 100vh;
+            background: var(--white);
+            padding: 20px;
+            transition: 0.5s;
+        }
+
+        .main.active {
+            width: calc(100% - 80px);
+            left: 80px;
+        }
+
+        .details {
+            position: relative;
+            
+            width: 100%;
+            padding: 20px;
+            margin-top: 10px;
+        }
+
+        .scheduleBox {
+            position: relative;
+            
+            min-height: 100vh;
+            padding: 20px;
+            background: var(--white);
+            box-shadow: 0 7px 25px rgba(0, 0, 0, 0.8);
+            border-radius: 20px;
+        }
+
+        .search-section {
+            display: flex;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .search-section input {
+            width: 300px;
+            height: 40px;
+            padding: 5px 15px;
+            border-radius: 5px;
+            border: 1px solid var(--black2);
+            outline: none;
+        }
+
+        .search-section button {
+            padding: 10px 20px;
+            background-color: var(--blue);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-section button:hover {
+            background-color: var(--black2);
+        }
+
+        /* Map Section */
+        .map-section {
+            width: 100%;
+            height: 400px;
+            background-color: var(--grey);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.2em;
+        }
+
+        
+        .driver-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2em;
+            color: var(--black1);}
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="icon"><ion-icon name="grid-outline"></ion-icon></span>
+                        <span class="title">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="buses">
+                        <span class="icon"><ion-icon name="bus-outline"></ion-icon></span>
+                        <span class="title">Available Buses</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="drivers">
+                        <span class="icon"><ion-icon name="person-circle-outline"></ion-icon></span>
+                        <span class="title">Driver Details</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="staff">
+                        <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
+                        <span class="title">Staff Details</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="routes">
+                        <span class="icon"><ion-icon name="navigate-circle-outline"></ion-icon></span>
+                        <span class="title">Routes Details</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="scheduler">
+                        <span class="icon"><ion-icon name="calendar-outline"></ion-icon></span>
+                        <span class="title">Scheduler</span>
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="emergency">
+                        <span class="icon"><ion-icon name="notifications-circle-outline"></ion-icon></span>
+                        <span class="title">Emergency Notification</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="emergencyResponse">
+                        <span class="icon"><ion-icon name="notifications-circle-outline"></ion-icon></span>
+                        <span class="title">Emergency Response</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
+                        <span class="title">log out</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+            <div class="main">
+            <div class="details">
+    <div class="search-section">
+        <form method="post">
+            {% csrf_token %}
+            <label for="start_stop">Start Bus Stop:</label>
+            {{ form.start_stop }}
+            <br>
+            <label for="end_stop">End Bus Stop:</label>
+            {{ form.end_stop }}
+            <br>
+            <button type="submit">Get Route</button>
+        </form>
+
+        {% if error_message %}
+            <div class="error-message">{{ error_message }}</div>
+        {% endif %}
+        
+        {% if route %}
+            <div class="success-message">
+                Route found: Duration {{ route.duration }} seconds, Distance {{ route_length_km }} km.
+            </div>
+        {% endif %}
+    </div>
+    
+    <!-- HERE Maps Container -->
+    <div id="mapContainer"></div>
+    
+    <!-- Google Maps Container -->
+   <!--<div id="googleMapContainer"></div>-->
+ </div>
+ </div>
+
+    <script>
+        // Initialize HERE Maps
+        var platform = new H.service.Platform({
+            apikey: '1GVcX7FwWkZuo606SxV05QyyXp6ADz7Vs93A8I16xz8'  // Replace with your HERE API key
+        });
+
+        console.log("HERE Platform Initialized");
+
+        var maptypes = platform.createDefaultLayers();
+        var hereMap = new H.Map(
+            document.getElementById('mapContainer'),
+            maptypes.vector.normal.map,
+            {
+                zoom: 13,
+                center: { lat: 28.613939, lng: 77.209023 }  // Center on an initial location (e.g., Rajiv Chowk, Delhi)
+            }
+        );
+
+        var mapEvents = new H.mapevents.MapEvents(hereMap);
+        var behavior = new H.mapevents.Behavior(mapEvents);
+        var ui = H.ui.UI.createDefault(hereMap, maptypes);
+
+        {% if route %}
+        var polyline = "{{ polyline|escapejs }}";
+        
+        if (polyline) {
+            var lineString = H.geo.LineString.fromFlexiblePolyline(polyline);
+            var routeLine = new H.map.Polyline(lineString, {
+                style: { strokeColor: 'blue', lineWidth: 4 }
+            });
+            hereMap.addObject(routeLine);
+            hereMap.getViewModel().setLookAtData({ bounds: routeLine.getBoundingBox() });
+        }
+
+        var busStops = {{ bus_stops_list|safe }};
+        if (busStops) {
+            busStops.forEach(function(stop) {
+                // Ensure latitude and longitude are numbers
+                var lat = parseFloat(stop.lat);
+                var lng = parseFloat(stop.lng);
+                var name = stop.name || 'Unnamed Stop'; // Use default name if NaN
+                if (!isNaN(lat) && !isNaN(lng)) {
+                    var busStopMarker = new H.map.Marker({ lat: lat, lng: lng });
+                    hereMap.addObject(busStopMarker);
+                } else {
+                    console.error('Invalid bus stop coordinates:', stop);
+                }
+            });
+        }
+        {% endif %}
+
+        // Initialize Google Maps
+        function initGoogleMap() {
+            var googleMap = new google.maps.Map(document.getElementById('googleMapContainer'), {
+                zoom: 13,
+                center: { lat: 28.613939, lng: 77.209023 }
+            });
+
+            {% if bus_stops_list %}
+            var busStops = {{ bus_stops_list|safe }};
+            if (busStops) {
+                busStops.forEach(function(stop) {
+                    // Ensure latitude and longitude are numbers
+                    var lat = parseFloat(stop.lat);
+                    var lng = parseFloat(stop.lng);
+                    var name = stop.name || 'Unnamed Stop'; // Use default name if NaN
+                    if (!isNaN(lat) && !isNaN(lng)) {
+                        var marker = new google.maps.Marker({
+                            position: { lat: lat, lng: lng },
+                            map: googleMap,
+                            title: name
+                        });
+                    } else {
+                        console.error('Invalid bus stop coordinates:', stop);
+                    }
+                });
+            }
+            {% endif %}
+        }
+    </script>
+    <script src="../satic/js/script.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Stop Locator</title>
+</head>
+<body>
+    <h1>Bus Stop Locator</h1>
+    
+    <form method="post">
+        {% csrf_token %}
+        <label for="place_a">Enter Place A:</label>
+        <input type="text" id="place_a" name="place_a" required><br><br>
+        
+        <label for="place_b">Enter Place B:</label>
+        <input type="text" id="place_b" name="place_b" required><br><br>
+        
+        <button type="submit">Generate Map</button>
+    </form>
+
+    {% if map_image %}
+        <h2>Map of Bus Stops Between {{ place_a }} and {{ place_b }}</h2>
+        <img src="data:image/png;base64,{{ map_image }}" alt="Map">
+    {% endif %}
+
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+</body>
+</html>

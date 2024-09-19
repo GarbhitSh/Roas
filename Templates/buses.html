@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Management Dashboard</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="navigation">
+
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="icon"><ion-icon name="grid-outline"></ion-icon></span>
+                        <span class="title">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="buses">
+                        <span class="icon"><ion-icon name="bus-outline"></ion-icon></span>
+                        <span class="title">Available Buses</span>
+                    </a>
+                </li>
+                <li>
+
+                    <a href="drivers">
+                        <span class="icon"><ion-icon name="person-circle-outline"></ion-icon></span>
+                        <span class="title">Driver Details</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="staff">
+                        <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
+                        <span class="title">Staff Details</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="routes">
+                        <span class="icon"><ion-icon name="navigate-circle-outline"></ion-icon></span>
+                        <span class="title">Routes Details</span>
+                    </a>
+                </li>
+                </li>
+                <li>
+                    <a href="scheduler">
+                        <span class="icon"><ion-icon name="calendar-outline"></ion-icon></span>
+                        <span class="title">Scheduler</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="emergency">
+                        <span class="icon"><ion-icon name="notifications-circle-outline"></ion-icon></span>
+                        <span class="title">Emergency Notification</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="emergencyResponse">
+                        <span class="icon"><ion-icon name="notifications-circle-outline"></ion-icon></span>
+                        <span class="title">Emergency Response</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
+                        <span class="title">log out</span>
+                    </a>
+                </li>
+
+
+            </ul>
+        </div>
+
+        <div class="main">
+            <div class="topbar">
+                <div class="toggle">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </div>
+                <div class="search">
+                    <label>
+                        <input type="text" placeholder="Search here">
+                        <ion-icon name="search-outline"></ion-icon>
+                    </label>
+                </div>
+                <div class="user">
+                    <img src="user.png">
+                </div>
+            </div>
+
+            <div class="details">
+                <div class="availBuses">
+                    <div class="cardHeader">
+                        <h2>
+                            Available Buses
+                        </h2>
+                        <a href="#" class="btn">View All</a>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>BusID</td>
+                                <td>BusNumber</td>
+                                <td>Route</td>
+                                <td>Status</td>
+                            </tr>
+                        </thead>
+                         <tbody>
+                            <tr>
+                                <td>B0001</td>
+                                <td>01</td>
+                                <td>Kendriya Terminal to Adarsh Nagar</td>
+                                <td><span class="statusrunning">Running</span></td>
+
+                            </tr>
+                            <tr>
+                                <td>B0002</td>
+                                <td>02</td>
+                                <td>Kendriya Terminal to Sameypur</td>
+                                <td><span class="statusrunning">Running</span></td>
+
+                            </tr>
+                            <tr>
+                                <td>B0003</td>
+                                <td>03</td>
+                                <td>ISBT / Kashmiri Gate to Okhla</td>
+                                <td><span class="statusrunning">Running</span></td>
+
+                            </tr>
+                            <tr>
+                                <td>B0004</td>
+                                <td>04</td>
+                                <td>Bhajanpura to Noida Sector 37</td>
+                                <td><span class="statusrunning">Running</span></td>
+
+                            </tr>
+                            <tr>
+                                <td>B0005</td>
+                                <td>05</td>
+                                <td>G.T.B. Nagar to Jharoda Village</td>
+                                <td><span class="statusvacant">Vacant</span></td>
+
+                            </tr>
+                            <tr>
+                                <td>B0005</td>
+                                <td>06</td>
+                                <td>Azadpur Terminal to Inder Puri JJ Colony</td>
+                                <td><span class="statusrunning">Running</span></td>
+
+                            </tr>
+                            <tr>
+                                <td>B0007</td>
+                                <td>07</td>
+                                <td>ISBT Maharana Pratap Bus to Anand Vihar ISBT</td>
+                                <td><span class="statusrunning">Running</span></td>
+
+                            </tr>
+                            <tr>
+                                <td>B0008</td>
+                                <td>08</td>
+                                <td>ISBT / Kashmiri Gate to Anand Vihar ISBT</td>
+                                <td><span class="statusbroken">broken</span></td>
+
+                            </tr>
+                            <tr>
+                                <td>B0009</td>
+                                <td>09</td>
+                                <td>ISBT / Kashmiri Gate to Bawana</td>
+                                <td><span class="statusvacant">Vacant</span></td>
+
+                            </tr>
+                            <tr>
+                                <td>B0010</td>
+                                <td>10</td>
+                                <td>New Delhi Railway Station to Mangla Puri</td>
+                                <td><span class="statusbroken">broken</span></td>
+
+                            </tr>
+                            <tr>
+                                <td>B0011</td>
+                                <td>11</td>
+                                <td>Shivaji Stadium to Mundka</td>
+                                <td><span class="statusvacant">Vacant</span></td>
+
+                            </tr>
+                            <tr>
+                                <td>B0012</td>
+                                <td>12</td>
+                                <td>New Delhi Railway Station to	Anand Vihar ISBT</td>
+                                <td><span class="statusrunning">Running</span></td>
+
+                            </tr>
+                            <tr>
+                                <td>B0013</td>
+                                <td>13</td>
+                                <td>India gate to Lajpat Nagar</td>
+                                <td><span class="statusbroken">broken</span></td>
+
+                            </tr>
+                            <tr>
+                                <td>B0014</td>
+                                <td>14</td>
+                                <td>Kendriya Terminal to Rohini Sector 16</td>
+                                <td><span class="statusrunning">Running</span></td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <script src="../static/js/script.js"></script>
+            <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+            <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>
